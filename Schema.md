@@ -9,6 +9,7 @@
 * Image (<ins>image_id</ins>, user_id, image_path)
   * This table contains the file path to images that are displayed on a user's profile page
   * Foreign key user_id references Users
+  * Foreign key user_id references Profile
 
 * Liked (<ins>liked_id</ins>, person1, person2, matched)
   * This table contains information about who has reacted to another user's profile
