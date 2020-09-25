@@ -13,7 +13,7 @@
 
 * Liked (<ins>liked_id</ins>, person1, person2, matched)
   * This table contains information about who has reacted to another user's profile
-  * person1 is the person who said yes to person2’s profile
+  * person1 is the person who said yes to person2’s profile (whoever hit "like" first)
   * matched is a Boolean (0 is person2 says no to person1, 1 is person2 says yes to person1, and NULL means person2 hasn’t decided on person1 yet)
 
 NOTE: Users and Profile could be made into one table, but we decided to split them up for organizational purposes.  They share the same primary key.
