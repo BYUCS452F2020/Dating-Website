@@ -1,18 +1,3 @@
-<?php
-
-
-include_once "./lib/php/users.php";
-
-/**if (isLoggedIn()){
-	echo "already logged in";
-}
-else {
-	echo "not logged in";
-}
-**/
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -85,6 +70,7 @@ else {
 	function finishLogin(obj, textstatus){
 		if (obj.success){
 			document.getElementById("errorMessage").innerHTML = "";
+			location.replace("index.php");
 		}
 		else {
 			document.getElementById("errorMessage").innerHTML = obj.message;
