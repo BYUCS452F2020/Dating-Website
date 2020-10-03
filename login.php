@@ -1,3 +1,17 @@
+<?php
+
+
+include_once "./lib/php/users.php";
+
+/**if (isLoggedIn()){
+	echo "already logged in";
+}
+else {
+	echo "not logged in";
+}
+**/
+?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -37,13 +51,13 @@
 </head>
 <body>
 <div class="login-form">
-    <form action="/examples/actions/confirmation.php" method="post">
+    <form action="javascript:doLogin()">
         <h2 class="text-center">Log in</h2>       
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="Username" required="required">
+            <input type="text" class="form-control" placeholder="Username" id="username" required="required">
         </div>
         <div class="form-group">
-            <input type="password" class="form-control" placeholder="Password" required="required">
+            <input type="password" class="form-control" placeholder="Password" id="password" required="required">
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-block">Log in</button>
@@ -51,8 +65,30 @@
         <div class="clearfix">
             <a href="#" class="float-right">Forgot Password?</a>
         </div>        
+		<div id="errorMessage" style='color: red'></div>
     </form>
     <p class="text-center"><a href="create.php">Create an Account</a></p>
 </div>
 </body>
+
+<script src="./lib/javascript/api.js"></script>
+<script>
+	
+	function doLogin(){
+		
+		var username = document.getElementById("username").value;
+		var password = document.getElementById("password").value;
+		
+		callPhpFunction("doLogin", [username, password], finishLogin);
+	}
+	
+	function finishLogin(obj, textstatus){
+		if (obj.success){
+			document.getElementById("errorMessage").innerHTML = "";
+		}
+		else {
+			document.getElementById("errorMessage").innerHTML = obj.message;
+		}
+	}
+</script>
 </html>
