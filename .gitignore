@@ -1,0 +1,3 @@
+
+# don't include the error log in the GIT repo
+php_errors.log
