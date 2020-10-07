@@ -1,3 +1,16 @@
+<?php
+
+include_once "./lib/php/users.php";
+
+$redirectURL = $_GET['redirect'];
+
+if (isLoggedIn()){
+	echo "<script>location.replace('{$redirectURL}');</script>";
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -70,7 +83,7 @@
 	function finishLogin(obj, textstatus){
 		if (obj.success){
 			document.getElementById("errorMessage").innerHTML = "";
-			location.replace("index.php");
+			location.replace("<?php echo $redirectURL?>");
 		}
 		else {
 			document.getElementById("errorMessage").innerHTML = obj.message;
