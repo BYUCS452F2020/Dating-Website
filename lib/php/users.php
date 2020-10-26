@@ -16,10 +16,10 @@ function doLogin($username, $password){
     $success = false;
     $message = "";
     
-    $result = doSelect("select user_id from Users where email = '{$username}' and password = '{$password}'");
+    $result = doSelect("select email from Users where email = '{$username}' and password = '{$password}'");
     
     if (count($result) == 1){
-        setcookie("user_id", $result[0]['user_id'], 0, "/");
+        setcookie("email", $result[0]['email'], 0, "/");
         $success = true;
     }
     else {
@@ -38,7 +38,7 @@ function doLogin($username, $password){
  * Signs the currently signed in user out of the system
  */
 function doLogout(){
-    setcookie("user_id", "", time() - 3600, "/");
+    setcookie("email", "", time() - 3600, "/");
 }
 
 /**
@@ -47,5 +47,5 @@ function doLogout(){
  * @return boolean true if there is a user currently logged in, false otherwise
  */
 function isLoggedIn(){
-    return isset($_COOKIE['user_id']);
+    return isset($_COOKIE['email']);
 }
