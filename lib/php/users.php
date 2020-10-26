@@ -2,6 +2,8 @@
 
 include_once "db_connect.php";
 
+$userCookieKey = "email";
+
 /**
  * Attempts to log a user into the system
  *
@@ -12,6 +14,8 @@ include_once "db_connect.php";
  */
 function doLogin($username, $password){
     
+    global $userCookieKey;
+    
     $returnValue = array();
     $success = false;
     $message = "";
@@ -19,7 +23,7 @@ function doLogin($username, $password){
     $result = doSelect("select email from Users where email = '{$username}' and password = '{$password}'");
     
     if (count($result) == 1){
-        setcookie("email", $result[0]['email'], 0, "/");
+        setcookie($userCookieKey, $result[0]['email'], 0, "/");
         $success = true;
     }
     else {
@@ -38,7 +42,10 @@ function doLogin($username, $password){
  * Signs the currently signed in user out of the system
  */
 function doLogout(){
-    setcookie("email", "", time() - 3600, "/");
+    
+    global $userCookieKey;
+    
+    setcookie($userCookieKey, "", time() - 3600, "/");
 }
 
 /**
@@ -47,5 +54,23 @@ function doLogout(){
  * @return boolean true if there is a user currently logged in, false otherwise
  */
 function isLoggedIn(){
-    return isset($_COOKIE['email']);
+    
+    global $userCookieKey;
+    return isset($_COOKIE[$userCookieKey]);
+}
+
+/**
+ * Returns the ID of the currently logged in user
+ *
+ * @return the ID of the currently logged in user
+ */
+function getUserID(){
+    
+    global $userCookieKey;
+    if (isLoggedIn()){
+        return $_COOKIE[$userCookieKey];
+    }
+    else {
+        return "";
+    }
 }
