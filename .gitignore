@@ -1,3 +1,6 @@
 
 # don't include the error log in the GIT repo
 php_errors.log
+
+# don't include images in the repo
+./images/*.jpg
