@@ -13,15 +13,16 @@ $userCookieKey = "email";
  * @return array an array with elements 'success' and 'messsage'
  */
 function doLogin($username, $password){
-    
+
     global $userCookieKey;
-    
+
     $returnValue = array();
     $success = false;
     $message = "";
-    
-    $result = doSelect("select email from Users where email = '{$username}' and password = '{$password}'");
-    
+
+    $result = doSelect("Users", "email = :user and password = :password",
+     array(":user" => $username, ":password" => $password));
+
     if (count($result) == 1){
         setcookie($userCookieKey, $result[0]['email'], 0, "/");
         $success = true;
@@ -30,21 +31,21 @@ function doLogin($username, $password){
         $success = false;
         $message = "Username/password combination was not correct.";
     }
-    
+
     $returnValue['success'] = $success;
     $returnValue['message'] = $message;
-    
+
     return $returnValue;
-    
+
 }
 
 /**
  * Signs the currently signed in user out of the system
  */
 function doLogout(){
-    
+
     global $userCookieKey;
-    
+
     setcookie($userCookieKey, "", time() - 3600, "/");
 }
 
@@ -54,7 +55,7 @@ function doLogout(){
  * @return boolean true if there is a user currently logged in, false otherwise
  */
 function isLoggedIn(){
-    
+
     global $userCookieKey;
     return isset($_COOKIE[$userCookieKey]);
 }
@@ -65,7 +66,7 @@ function isLoggedIn(){
  * @return the ID of the currently logged in user
  */
 function getUserID(){
-    
+
     global $userCookieKey;
     if (isLoggedIn()){
         return $_COOKIE[$userCookieKey];
