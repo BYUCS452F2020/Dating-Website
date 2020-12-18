@@ -11,3 +11,33 @@ $client = \Aws\DynamoDb\DynamoDbClient::factory(array(
     'region' => 'us-west-2',
     'endpoint' => 'http://localhost:8000'
 ));
+
+$result = $client->createTable([
+    'AttributeDefinitions' => [
+        [
+            'AttributeName' => 'filename',
+            'AttributeType' => 'S',
+        ],
+        [
+	    'AttributeName' => 'user_id',
+	    'AttributeType' => 'S',
+	],
+    ],
+    'KeySchema' => [
+        [
+            'AttributeName' => 'filename',
+            'KeyType' => 'HASH',
+        ],
+        [
+            'AttributeName' => 'user_id',
+            'KeyType' => 'RANGE',
+        ],
+    ],
+    'ProvisionedThroughput' => [
+        'ReadCapacityUnits' => 5,
+        'WriteCapacityUnits' => 5,
+    ],
+    'TableName' => 'Image',
+]);
+
+echo $result;

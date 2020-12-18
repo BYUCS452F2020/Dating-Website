@@ -14,12 +14,12 @@ function getConnection(){
 
 function doSelect($query){
 	$returnArray = array();
-	
+
 	$conn = getConnection();
-	
+
 	$result = $conn->query($query);
-	
-	
+
+
 
 	if ($result) {
 	  // output data of each row
@@ -27,9 +27,8 @@ function doSelect($query){
 		array_push($returnArray, $row);
 	  }
 	}
-	
+
 	$conn->close();
-	
+
 	return $returnArray;
 }
-
