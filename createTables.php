@@ -15,21 +15,21 @@ $client = \Aws\DynamoDb\DynamoDbClient::factory(array(
 $result = $client->createTable([
     'AttributeDefinitions' => [
         [
-            'AttributeName' => 'filename',
+            'AttributeName' => 'email',
             'AttributeType' => 'S',
         ],
         [
-	    'AttributeName' => 'user_id',
-	    'AttributeType' => 'S',
-	],
+            'AttributeName' => 'password',
+            'AttributeType' => 'S',
+        ]
     ],
     'KeySchema' => [
         [
-            'AttributeName' => 'filename',
+            'AttributeName' => 'email',
             'KeyType' => 'HASH',
         ],
         [
-            'AttributeName' => 'user_id',
+            'AttributeName' => 'password',
             'KeyType' => 'RANGE',
         ],
     ],
@@ -37,7 +37,7 @@ $result = $client->createTable([
         'ReadCapacityUnits' => 5,
         'WriteCapacityUnits' => 5,
     ],
-    'TableName' => 'Image',
+    'TableName' => 'Users',
 ]);
 
 echo $result;
